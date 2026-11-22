@@ -2,7 +2,7 @@
 public class BinarySearchTree {
 
     // Represents one node in the tree
-    private class Node {
+    private static class Node {
         int value;
         Node left;
         Node right;

@@ -1,62 +1,55 @@
+void main() {
+    int[] sizes = {100, 1000, 10000};
 
-import java.util.ArrayList;
-import java.util.Random;
+    int trials = 10;
+    int range = 10000;
 
-public class Main {
+    Random random = new Random();
 
-    public static void main(String[] args) {
-        int[] sizes = {100, 1000, 10000};
+    for (int size : sizes) {
 
-        int trials = 10;
-        int range = 10000;
+        double totalHeight = 0;
+        double totalNodesVisited = 0;
+        int totalSearches = 0;
 
-        Random random = new Random();
+        // Repeat the experiment 10 times
+        for (int trial = 0; trial < trials; trial++) {
 
-        for (int size : sizes) {
+            BinarySearchTree tree = new BinarySearchTree();
 
-            double totalHeight = 0;
-            double totalNodesVisited = 0;
-            int totalSearches = 0;
+            ArrayList<Integer> numbers = new ArrayList<>();
 
-            // Repeat the experiment 10 times
-            for (int trial = 0; trial < trials; trial++) {
+            // Generate random numbers and insert them
+            for (int i = 0; i < size; i++) {
 
-                BinarySearchTree tree = new BinarySearchTree();
+                int number = random.nextInt(range) + 1;
 
-                ArrayList<Integer> numbers = new ArrayList<>();
-
-                // Generate random numbers and insert them
-                for (int i = 0; i < size; i++) {
-
-                    int number = random.nextInt(range) + 1;
-
-                    numbers.add(number);
-                    tree.insert(number);
-                }
-
-                // Record the height
-                totalHeight += tree.height();
-
-                // Search for every number in the array
-                for (int number : numbers) {
-                    totalNodesVisited += tree.find(number);
-                    totalSearches++;
-                }
+                numbers.add(number);
+                tree.insert(number);
             }
 
-            // Calculate averages
-            double averageHeight = totalHeight / trials;
+            // Record the height
+            totalHeight += tree.height();
 
-            double averageNodesVisited =
-                    totalNodesVisited / totalSearches;
-
-            // Display results
-            System.out.println("Number of values: " + size);
-            System.out.println("Average height: " + averageHeight);
-            System.out.println("Average nodes visited per find: "
-                    + averageNodesVisited);
-
-            System.out.println("-----------------------------");
+            // Search for every number in the array
+            for (int number : numbers) {
+                totalNodesVisited += tree.find(number);
+                totalSearches++;
+            }
         }
+
+        // Calculate averages
+        double averageHeight = totalHeight / trials;
+
+        double averageNodesVisited =
+                totalNodesVisited / totalSearches;
+
+        // Display results
+        IO.println("Number of values: " + size);
+        IO.println("Average height: " + averageHeight);
+        IO.println("Average nodes visited per find: "
+                + averageNodesVisited);
+
+        IO.println("-----------------------------");
     }
 }
