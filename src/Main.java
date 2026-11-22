@@ -1,6 +1,5 @@
 void main() {
     int[] sizes = {100, 1000, 10000};
-
     int trials = 10;
     int range = 10000;
 
